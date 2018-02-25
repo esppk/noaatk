@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1519360092805.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2851360263",
+    "id" : "A0871E35",
+    "lastKnownWriteTime" : 1519460533,
+    "last_content_update" : 1519460533308,
+    "path" : "C:/Users/esppk/OneDrive/NOAA_Toolkits/noaatk/R/eq_clean_data.R",
+    "project_path" : "R/eq_clean_data.R",
+    "properties" : {
+        "cursorPosition" : "17,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
