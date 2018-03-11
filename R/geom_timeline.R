@@ -1,7 +1,13 @@
-#
-GeomTimeline <- ggplot2::ggproto("GeomTimeline", Geom,
+#'Geom obj: Timeline
+#'@param x A date data that used to draw the timeline
+#'@param y denote each country
+#'@param size same as in ggplot2, used to show magnitude of earth quake
+#'@return This function use along ggplot2 to draw timeline geom
+#'
+#'@export
+GeomTimeline <- ggplot2::ggproto("GeomTimeline", ggplot2::Geom,
                                  required_aes = c("x"),
-                                 default_aes = aes(y = 0.2, fill = "gray", size = 1, alpha = 0.5),
+                                 default_aes = ggplot2::aes(y = 0.2, fill = "gray", size = 1, alpha = 0.5),
                                  draw_key = function(data, params, size){
                                    grid::circleGrob(0.5,0.5,r = data$size/20,
                                                     gp = grid::gpar(
@@ -37,8 +43,13 @@ GeomTimeline <- ggplot2::ggproto("GeomTimeline", Geom,
                                  }
 )
 
-
-
+#'plot Timeline without labels
+#'
+#'@examples
+#'\dontrun{
+#'ggplot(plot_dat, aes(x = DATE,y = COUNTRY))+ geom_timeline(aes(fill = DEATHS, size = EQ_MAG_MS))
+#'}
+#'@export
 geom_timeline <- function(mapping = NULL, data = NULL, stat = "identity",
                           position = "identity", na.rm = FALSE,
                           show.legend = NA, inherit.aes = TRUE, ...) {
@@ -50,8 +61,4 @@ geom_timeline <- function(mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-
-geom_timelineWraper <- function(){
-  geom_timeline() + theme_bw()
-}
 

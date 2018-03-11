@@ -1,7 +1,14 @@
-#
-GeomTimelinelabel <- ggplot2::ggproto("GeomTimelinelabel", Geom,
+#'Geom Object:Timeline with labels
+#'@param x A date data that used to draw the timeline
+#'@param loc location of the earthquake, used in the labels
+#'@param n_max show how many largest earthquake you want show
+#'@param y denote each country
+#'@param size same as in ggplot2, used to show magnitude of earth quake
+#'@return This function use along ggplot2 to draw timeline geom
+#'@export
+GeomTimelinelabel <- ggplot2::ggproto("GeomTimelinelabel", ggplot2::Geom,
                                  required_aes = c("x", "loc"),
-                                 default_aes = aes(n_max = 3,y = 0.2, fill = "gray", size = 1, alpha = 0.5),
+                                 default_aes = ggplot2::aes(n_max = 3,y = 0.2, fill = "gray", size = 1, alpha = 0.5),
                                  draw_key = function(data, params, size){
                                    alpha <- (data$alpha - min(data$alpha, na.rm = T))/(max(data$alpha, na.rm =  T) - min(data$alpha, na.rm = T))
                                    alpha[is.na(alpha)] <- 0.5
@@ -50,8 +57,14 @@ GeomTimelinelabel <- ggplot2::ggproto("GeomTimelinelabel", Geom,
 
 )
 
-
-
+#'
+#'plot Timeline with labels
+#'
+#'@examples
+#'\dontrun{
+#'ggplot(plot_dat, aes(x = DATE,y = COUNTRY)) + geom_timelinelabel(aes(fill = DEATHS, size = EQ_MAG_MS, loc = LOCATION_NAME_))
+#'}
+#'@export
 geom_timelinelabel <- function(mapping = NULL, data = NULL, stat = "identity",
                           position = "identity", na.rm = FALSE,
                           show.legend = NA, inherit.aes = TRUE, ...) {
@@ -61,10 +74,5 @@ geom_timelinelabel <- function(mapping = NULL, data = NULL, stat = "identity",
     show.legend = show.legend, inherit.aes = inherit.aes,
     params = list(na.rm = na.rm, ...)
   )
-}
-
-
-geom_timelineWraper <- function(){
-  geom_timeline() + theme_bw()
 }
 

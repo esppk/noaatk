@@ -1,7 +1,12 @@
-#clean the RAW data, output clean dataframe
+#'clean the RAW data, output clean dataframe
 #'@param data Raw data need to be cleaned
 #'@value cleaned data
+#'@examples
+#'\dontrun{
+#'cleaned <- eq_clean_data(raw_data)
+#'}
 #'@importFrom dplyr %>%
+#'@export
 
 eq_clean_data <- function(data){
 

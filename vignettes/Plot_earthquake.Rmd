@@ -1,0 +1,55 @@
+---
+title: "NOAA Toolkit"
+author: "Emrick"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+#Plot with earthquake data
+
+This package allows you to clean the data then plot the data with either timeline or map fashion.
+
+## Clean the data
+
+The `eq_clean_data` function provide necessary functionalities to transform the data into a form that can be plotted with ggplot2 or leafleat.
+
+```{r, echo=FALSE}
+library(noaatk)
+library(ggplot2)
+library(leaflet)
+library(dplyr,quietly = T)
+# noaa <- as.data.frame(data(noaa))
+# cleaned <- eq_clean_data(noaa)
+```
+
+## Draw Timeline plot
+
+There are 2 ggplot2 goems in the package that allow you to draw Timeline graph. One without label, while the other provide location labels.
+
+```{r}
+# plot_dat <- cleaned %>% filter(DATE< lubridate::ymd("2009-1-1") & DATE > lubridate::ymd("2005-1-1")) %>% filter(COUNTRY %in% c("CHINA", "JAPAN", "USA"))
+ggplot(plot_dat, aes(x = DATE))+ geom_timeline(aes(fill = DEATHS, size = EQ_MAG_MS)) + theme_bw()
+```
+```{r}
+ggplot(plot_dat, aes(x = DATE,y = COUNTRY))+ geom_timelinelabel(aes(fill = DEATHS, size = EQ_MAG_MS, loc = LOCATION_NAME_)) + theme_bw()
+```
+
+## Draw Map with earthquke annotations
+
+`eq_map` function allow you to use the power of leaflet to produce an interactive map with earthquakes ploted at their 'quake-location'. There is also a very useful helper function `eq_create_label` that can be used to generate labels. 
+
+```{r}
+map_dat <- plot_dat %>% filter(COUNTRY == "CHINA")
+labeled_map_dat <- map_dat %>% mutate(pop_text = eq_create_label(.))
+labeled_map_dat %>% eq_map(DATE)
+```
+
+```{r}
+labeled_map_dat <- map_dat %>% mutate(pop_text = eq_create_label(.))
+```
+
+

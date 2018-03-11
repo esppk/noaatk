@@ -1,14 +1,23 @@
 Package: noaatk
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Clean and Plot earthquake data
 Version: 0.1.0
-Author: Who wrote it
+Author: person("Emrick", "Liu", "esppk@qq.com", role = "aut")
 Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Description: This package allows you to clean the data then plot the data with either timeline or map fashion.
+Depends: R (>= 3.4.2)
+License: MIT
 Encoding: UTF-8
 LazyData: true
 Imports: dplyr,
     tidyr,
-    stringr
+    stringr,
+    ggplot2,
+    grid,
+    leaflet,
+    lubridate
+Suggests: knitr,
+    rmarkdown,
+    testthat
+VignetteBuilder: knitr
+RoxygenNote: 6.0.1
