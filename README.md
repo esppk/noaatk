@@ -1,3 +1,3 @@
 # noaatk
 
-Toolkit for ploting earthquake data
+Toolkit for cleaning and ploting earthquake data.
