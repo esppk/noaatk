@@ -8,8 +8,30 @@ geom_timeline(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE, ...)
 }
+\arguments{
+\item{mapping}{mapping}
+
+\item{data}{data used to plot}
+
+\item{stat}{calculation that used to transform the data}
+
+\item{position}{relative position of the geoms}
+
+\item{na.rm}{NA remove}
+
+\item{show.legend}{whether show legend}
+
+\item{inherit.aes}{aes that inherit}
+
+\item{...}{other params to pass in}
+}
 \description{
 plot Timeline without labels
+}
+\details{
+x A date data that used to draw the timeline
+  y denote each country
+  size same as in ggplot2, used to show magnitude of earth quake
 }
 \examples{
 \dontrun{

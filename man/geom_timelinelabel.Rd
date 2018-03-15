@@ -8,11 +8,36 @@ geom_timelinelabel(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE, ...)
 }
+\arguments{
+\item{mapping}{mapping}
+
+\item{data}{data used to plot}
+
+\item{stat}{calculation that used to transform the data}
+
+\item{position}{relative position of the geoms}
+
+\item{na.rm}{NA remove}
+
+\item{show.legend}{whether show legend}
+
+\item{inherit.aes}{aes that inherit}
+
+\item{...}{other params to pass in}
+}
 \description{
 plot Timeline with labels
 }
+\details{
+x A date data that used to draw the timeline
+loc location of the earthquake, used in the labels
+n_max show how many largest earthquake you want show
+y denote each country
+size same as in ggplot2, used to show magnitude of earth quake
+}
 \examples{
 \dontrun{
-ggplot(plot_dat, aes(x = DATE,y = COUNTRY)) + geom_timelinelabel(aes(fill = DEATHS, size = EQ_MAG_MS, loc = LOCATION_NAME_))
+ggplot(plot_dat, aes(x = DATE,y = COUNTRY)) +
+  geom_timelinelabel(aes(fill = DEATHS, size = EQ_MAG_MS, loc = LOCATION_NAME_, n_max = 3))
 }
 }

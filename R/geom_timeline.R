@@ -1,9 +1,6 @@
 #'Geom obj: Timeline
-#'@param x A date data that used to draw the timeline
-#'@param y denote each country
-#'@param size same as in ggplot2, used to show magnitude of earth quake
-#'@return This function use along ggplot2 to draw timeline geom
 #'
+#'@return This function use along ggplot2 to draw timeline geom
 #'@export
 GeomTimeline <- ggplot2::ggproto("GeomTimeline", ggplot2::Geom,
                                  required_aes = c("x"),
@@ -45,6 +42,18 @@ GeomTimeline <- ggplot2::ggproto("GeomTimeline", ggplot2::Geom,
 
 #'plot Timeline without labels
 #'
+#'@details
+#' x A date data that used to draw the timeline
+#'   y denote each country
+#'   size same as in ggplot2, used to show magnitude of earth quake
+#'@param mapping mapping
+#'@param data data used to plot
+#'@param stat calculation that used to transform the data
+#'@param position relative position of the geoms
+#'@param na.rm NA remove
+#'@param show.legend whether show legend
+#'@param inherit.aes aes that inherit
+#'@param ... other params to pass in
 #'@examples
 #'\dontrun{
 #'ggplot(plot_dat, aes(x = DATE,y = COUNTRY))+ geom_timeline(aes(fill = DEATHS, size = EQ_MAG_MS))

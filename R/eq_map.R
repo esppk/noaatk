@@ -1,6 +1,8 @@
 #'This functions use to plot earthquakes on relavent map.
 #'
+#'@param map_dat dataframe that use to draw the map
 #'@param annot_col columns used to annotate
+#'
 #'@value This function will generate interactive map with dots shows the earthquake locations.
 #'@examples
 #'\dontrun{

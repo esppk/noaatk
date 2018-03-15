@@ -22,8 +22,8 @@ library(noaatk)
 library(ggplot2)
 library(leaflet)
 library(dplyr,quietly = T)
-# noaa <- as.data.frame(data(noaa))
-# cleaned <- eq_clean_data(noaa)
+
+cleaned <- eq_clean_data(noaa)
 ```
 
 ## Draw Timeline plot
@@ -31,7 +31,7 @@ library(dplyr,quietly = T)
 There are 2 ggplot2 goems in the package that allow you to draw Timeline graph. One without label, while the other provide location labels.
 
 ```{r}
-# plot_dat <- cleaned %>% filter(DATE< lubridate::ymd("2009-1-1") & DATE > lubridate::ymd("2005-1-1")) %>% filter(COUNTRY %in% c("CHINA", "JAPAN", "USA"))
+plot_dat <- cleaned %>% filter(DATE< lubridate::ymd("2009-1-1") & DATE > lubridate::ymd("2005-1-1")) %>% filter(COUNTRY %in% c("CHINA", "JAPAN", "USA"))
 ggplot(plot_dat, aes(x = DATE))+ geom_timeline(aes(fill = DEATHS, size = EQ_MAG_MS)) + theme_bw()
 ```
 ```{r}

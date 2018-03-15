@@ -7,6 +7,8 @@
 eq_map(map_dat, annot_col)
 }
 \arguments{
+\item{map_dat}{dataframe that use to draw the map}
+
 \item{annot_col}{columns used to annotate}
 }
 \description{

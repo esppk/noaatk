@@ -8,17 +8,6 @@
 \usage{
 GeomTimelinelabel
 }
-\arguments{
-\item{x}{A date data that used to draw the timeline}
-
-\item{loc}{location of the earthquake, used in the labels}
-
-\item{n_max}{show how many largest earthquake you want show}
-
-\item{y}{denote each country}
-
-\item{size}{same as in ggplot2, used to show magnitude of earth quake}
-}
 \value{
 This function use along ggplot2 to draw timeline geom
 }

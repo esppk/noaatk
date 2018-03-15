@@ -12,9 +12,18 @@ test_that("geomTimeline is ",{
 })
 
 test_that("poptext label", {
+  mat_dat <-   data.frame(LOCATION_NAME_ = "LA",
+                          EQ_MAG_MS = "3",
+                          DEATHS = "0")
   expect_is(eq_create_label(mat_dat), "character")
 })
 
 test_that("leaflet", {
-  expect_is(map_dat %>% eq_map(DATE) %>% class(), "leaflet")
+  mat_dat <- data.frame(LOCATION_NAME_ = "LA",
+                          EQ_MAG_MS = "3",
+                          DEATHS = "0",
+                          LONGITUDE = 34.05,
+                          LATITUDE= -118.25,
+                          DATE = lubridate::ymd("2018-02-12"))
+  expect_is(mat_dat %>% eq_map(DATE) %>% class(), "character")
 })

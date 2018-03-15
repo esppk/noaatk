@@ -1,9 +1,5 @@
 #'Geom Object:Timeline with labels
-#'@param x A date data that used to draw the timeline
-#'@param loc location of the earthquake, used in the labels
-#'@param n_max show how many largest earthquake you want show
-#'@param y denote each country
-#'@param size same as in ggplot2, used to show magnitude of earth quake
+#'
 #'@return This function use along ggplot2 to draw timeline geom
 #'@export
 GeomTimelinelabel <- ggplot2::ggproto("GeomTimelinelabel", ggplot2::Geom,
@@ -59,10 +55,24 @@ GeomTimelinelabel <- ggplot2::ggproto("GeomTimelinelabel", ggplot2::Geom,
 
 #'
 #'plot Timeline with labels
-#'
+#'@details
+#'x A date data that used to draw the timeline
+#' loc location of the earthquake, used in the labels
+#' n_max show how many largest earthquake you want show
+#' y denote each country
+#' size same as in ggplot2, used to show magnitude of earth quake
+#'@param mapping mapping
+#'@param data data used to plot
+#'@param stat calculation that used to transform the data
+#'@param position relative position of the geoms
+#'@param na.rm NA remove
+#'@param show.legend whether show legend
+#'@param inherit.aes aes that inherit
+#'@param ... other params to pass in
 #'@examples
 #'\dontrun{
-#'ggplot(plot_dat, aes(x = DATE,y = COUNTRY)) + geom_timelinelabel(aes(fill = DEATHS, size = EQ_MAG_MS, loc = LOCATION_NAME_))
+#'ggplot(plot_dat, aes(x = DATE,y = COUNTRY)) +
+#'   geom_timelinelabel(aes(fill = DEATHS, size = EQ_MAG_MS, loc = LOCATION_NAME_, n_max = 3))
 #'}
 #'@export
 geom_timelinelabel <- function(mapping = NULL, data = NULL, stat = "identity",

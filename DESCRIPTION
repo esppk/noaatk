@@ -6,7 +6,7 @@ Author: person("Emrick", "Liu", "esppk@qq.com", role = "aut")
 Maintainer: The package maintainer <yourself@somewhere.net>
 Description: This package allows you to clean the data then plot the data with either timeline or map fashion.
 Depends: R (>= 3.4.2)
-License: MIT
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Imports: dplyr,
@@ -15,7 +15,8 @@ Imports: dplyr,
     ggplot2,
     grid,
     leaflet,
-    lubridate
+    lubridate,
+    rlang
 Suggests: knitr,
     rmarkdown,
     testthat
