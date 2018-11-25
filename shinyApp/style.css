@@ -1,0 +1,11 @@
+.keystats{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+
+div#section-key-stats {
+
+  flex:200 489 0px !important;
+}

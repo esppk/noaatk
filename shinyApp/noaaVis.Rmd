@@ -1,0 +1,190 @@
+---
+title: "NoaaVis"
+output: 
+  flexdashboard::flex_dashboard:
+    vertical_layout: fill
+    css: style.css
+    theme: flatly
+runtime: shiny
+---
+
+Hurricane
+=====================================
+
+Column {.sidebar}
+-----------------------------------------------------------------------
+
+### Katrina Hurricane
+
+Hurricane Katrina was an extremely destructive and deadly Category 5 hurricane that struck the Gulf Coast of the United States in August 2005, causing catastrophic damage from central Florida to eastern Texas. 
+
+- **Click play to see how it evolved over time.**
+- **You can also Drag to see specific time point.**
+
+
+Column 
+-----------------------------------------------------------------------
+
+### Keyframe Animation
+
+```{r}
+library(plotly)
+library(flexdashboard)
+#load('anima_g.rda')
+load("g_w_map.rda")
+renderPlotly({
+   ggplotly(g_w_map)
+})
+
+```
+
+Column {data-width=400}
+-----------------------------------------------------------------------
+
+### Key Stats
+
+#### Highest Winds
+
+```{r}
+High <- 175
+gauge(High, min = 0, max = 231, symbol = "mph",
+      label = "Highest Winds",
+      gaugeSectors(danger = c(100,300)
+))
+```
+
+#### Fatalities
+
+```{r}
+Fatalities <- 1836
+gauge(Fatalities, min = 0, max = 2000,
+      label = "Fatalities", gaugeSectors(
+  success = c(0, 2), warning = c(3, 6), danger = c(100,2000)
+))
+```
+
+#### Damage(in US dollar)
+
+```{r}
+
+Damage <- 125
+gauge(Damage, min = 0, max = 200, symbol = 'M',
+      label="Damage", gaugeSectors(
+  success = c(80, 100), warning = c(40, 79), danger = c(0, 39)
+))
+```
+
+
+
+Earthquake
+=====================================
+
+Column {.sidebar}
+------------------------------------
+
+### Earthquake Magnitude and Deaths
+
+
+```{r}
+library(ggplot2)
+library(leaflet)
+library(lubridate)
+
+load('vis_data.rda')
+load('countries.rda')
+
+sliderInput("start_year", "Starting Year:", value = 1900,
+            min = 1800, max = 2018)
+
+sliderInput("end_year", "Ending Year:", value = 2015,
+            min = 1800, max = 2018)
+
+
+
+selectInput('country', 'Select Countries', choices = countries, selected = c("USA", "MEXICO") , multiple = TRUE,
+  selectize = TRUE, width = NULL, size = NULL)
+
+
+```
+
+
+
+Column {.tabset}
+-----------------------------------------------------------------------
+
+### Time Line
+
+```{r}
+
+start_date <- reactive({
+  ymd(paste(input$start_year, 01, 01, sep = "-"))
+})
+end_date <- reactive({
+  ymd(paste(input$end_year, 01, 01, sep = "-"))
+})
+
+
+renderPlotly({
+  ggplotly(
+    vis_data %>% filter(COUNTRY %in% input$country) %>%
+  filter(DATE > start_date(), DATE < end_date()) %>%
+  ggplot(aes(x = DATE, y = COUNTRY)) +
+  geom_segment(aes(x = min(DATE), y = COUNTRY, xend = max(DATE), yend = COUNTRY), alpha = 0.5, color = "tan") +
+  geom_point(aes(size = EQ_MAG_MW, alpha = DEATHS, text = paste('LOCATION:', LOCATION_NAME_)), color = "red") +
+  theme(axis.title.y = element_blank(), axis.ticks.y = element_blank()) +
+  theme_minimal() +
+  scale_alpha()
+  )
+})
+
+```
+
+
+### Map Vis (Click the Dot to Show Info)
+
+```{r}
+renderLeaflet({
+  leaflet::leaflet() %>%
+    leaflet::addTiles() %>%
+    leaflet::addCircleMarkers(data = vis_data %>% filter(COUNTRY == input$country) %>% 
+                                filter(DATE > start_date(), DATE < end_date()), 
+                              color = "red",
+                              radius = ~ EQ_MAG_MW,
+                     lng = ~ LONGITUDE, lat = ~ LATITUDE,
+                     popup = ~ pop_text)
+})
+```
+
+
+Column {data-width=400}
+-------------------------------------
+
+### Total Coutries in Dataset
+
+```{r}
+country_ <- 25
+valueBox(country_, icon = "fa-globe")
+```
+
+### Total Location 
+
+```{r}
+loca <- 317
+valueBox(loca, icon = "fa-map")
+```
+
+### Total Deaths
+
+```{r}
+deaths <- 1165738	
+valueBox(deaths, 
+         icon = "fa-skull")
+```
+
+### Total Years Span
+
+```{r}
+yrs <- 199
+valueBox(yrs, 
+         icon = "fa-calendar-alt")
+```

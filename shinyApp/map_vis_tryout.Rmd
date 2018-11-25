@@ -1,0 +1,89 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+vis_data <- noaa %>% 
+  select(EQ_MAG_MW, DEATHS, DATE, LOCATION_NAME_,
+         COUNTRY, LONGITUDE, LATITUDE)
+
+vis_data <- vis_data %>% na.omit()
+
+
+countries <- vis_data$COUNTRY %>% unique()
+
+countries <- vis_data %>% group_by(COUNTRY) %>% 
+  summarise(n = n()) %>% arrange(desc(n)) %>% 
+  filter(n >= 5) %>% select(COUNTRY) %>% 
+  purrr::flatten_chr()
+
+
+countries
+
+
+vis_data <- vis_data %>% filter(COUNTRY %in% countries)
+vis_data$DATE %>% range()
+```
+
+```{r warning=FALSE}
+library(lubridate)
+library(plotly)
+
+gg <- vis_data %>% filter(COUNTRY %in% c("CHINA", "ITALY", "TURKEY", "JAPAN")) %>% 
+  filter(DATE > ymd('1900-01-01')) %>% 
+  ggplot(aes(x = DATE, y = COUNTRY)) +
+  geom_segment(aes(x = min(DATE), y = COUNTRY, xend = max(DATE), yend = COUNTRY), alpha = 0.5, color = "tan") + 
+  geom_point(aes(size = EQ_MAG_MW, alpha = DEATHS, text = paste('LOCATION:', LOCATION_NAME_)), color = "red") + 
+  theme(axis.title.y = element_blank(), axis.ticks.y = element_blank()) +
+  theme_minimal() + 
+  scale_alpha()
+
+ggplotly(gg) 
+```
+
+
+```{r}
+eq_create_label <- function(dat){
+  loc <- dat$LOCATION_NAME_
+  mag <- dat$EQ_MAG_MW
+  dea <- dat$DEATHS
+  paste("<b>Location: </b>", loc,"<br>",
+        "<b>Magnitude: </b>", mag,"<br>",
+        "<b>Total deaths: </b>", dea)
+}
+```
+
+```{r}
+vis_data <- vis_data %>% mutate(pop_text = eq_create_label(.))
+vis_data
+
+save(vis_data, file = "./shinyApp/vis_data.rda")
+save(countries, file = "./shinyApp/countries.rda")
+```
+
+
+```{r}
+leaflet::leaflet() %>%
+    leaflet::addTiles() %>%
+    leaflet::addCircleMarkers(data = vis_data %>% filter(COUNTRY == "CHINA"), 
+                              color = "red",
+                              radius = ~ EQ_MAG_MW,
+                     lng = ~ LONGITUDE, lat = ~ LATITUDE,
+                     popup = ~ pop_text)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

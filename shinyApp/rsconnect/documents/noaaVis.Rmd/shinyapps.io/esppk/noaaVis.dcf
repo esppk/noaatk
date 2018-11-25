@@ -1,0 +1,12 @@
+name: noaaVis
+title: noaaVis
+username:
+account: esppk
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 588780
+bundleId: 1719473
+url: https://esppk.shinyapps.io/noaaVis/
+when: 1543172623.64531
+asMultiple: FALSE
+asStatic: FALSE
